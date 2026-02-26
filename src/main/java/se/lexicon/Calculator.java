@@ -9,9 +9,9 @@ public class Calculator implements ActionListener {
     JFrame frame;
     JTextField textField;
     JButton[] numberButtons = new JButton[10];
-    JButton[] functionButtons = new JButton[8];
+    JButton[] functionButtons = new JButton[9];
     JButton addButton, subButton, mulButton, divButton;
-    JButton decButton, equButton, delButton, clrButton;
+    JButton decButton, equButton, delButton, clrButton, negButton;
 
     //JPanel to hold all above buttons
     JPanel panel;
@@ -44,8 +44,9 @@ public class Calculator implements ActionListener {
         divButton = new JButton("/");
         decButton = new JButton(".");
         equButton = new JButton("=");
-        delButton = new JButton("Delete");
-        clrButton = new JButton("Clear");
+        delButton = new JButton("DEL");
+        clrButton = new JButton("CLR");
+        negButton = new JButton("(-)");
 
         //Add above buttons to functionButtons array
         functionButtons[0] = addButton;
@@ -56,9 +57,10 @@ public class Calculator implements ActionListener {
         functionButtons[5] = equButton;
         functionButtons[6] = delButton;
         functionButtons[7] = clrButton;
+        functionButtons[8] = negButton;
 
         //Set action listeners to function buttons
-        for (int i = 0; i <= 7; i++ ){
+        for (int i = 0; i <= 8; i++ ){
             functionButtons[i].addActionListener(this);
             functionButtons[i].setFont(myFont);
             functionButtons[i].setFocusable(false);
@@ -72,9 +74,10 @@ public class Calculator implements ActionListener {
             numberButtons[i].setFocusable(false);
         }
 
-        //Delete button and Clear button in the bottom of the panel
-        delButton.setBounds(50, 430, 145, 50);
-        clrButton.setBounds(205, 430, 145, 50);
+        //Set Negative button Delete button and Clear button in the bottom of the panel
+        negButton.setBounds(50, 430, 100, 50);
+        delButton.setBounds(150, 430, 100, 50);
+        clrButton.setBounds(250, 430, 100, 50);
 
         //Create a new panel
         panel = new JPanel();
@@ -108,6 +111,7 @@ public class Calculator implements ActionListener {
 
         // Add new panel to the frame
         frame.add(panel);
+        frame.add(negButton);
         frame.add(delButton);
         frame.add(clrButton);
         //Add textField to the frame
@@ -193,6 +197,33 @@ public class Calculator implements ActionListener {
             num1 = result;
         }
 
+        //Clear text
+        if(e.getSource() == clrButton){
+            textField.setText("");
+        }
 
+        //If click on delete that will delete numbers one by one
+        if (e.getSource() == delButton) {
+            String text = textField.getText();
+
+            if (!text.isEmpty()) {
+                textField.setText(text.substring(0, text.length() - 1));
+            }
+        }
+
+        // If click negative button
+        if (e.getSource() == negButton) {
+            String text = textField.getText();
+
+            if (!text.isEmpty()) {
+                try {
+                    double value = Double.parseDouble(text);
+                    value *= -1;
+                    textField.setText(String.valueOf(value));
+                } catch (NumberFormatException ex) {
+                    textField.setText("Invalid input");
+                }
+            }
+        }
     }
 }
