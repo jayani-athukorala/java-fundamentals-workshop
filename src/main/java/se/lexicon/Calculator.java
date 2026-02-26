@@ -124,5 +124,75 @@ public class Calculator implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        //Add numbers to the text fields
+        for(int i = 0; i <= 9; i++){
+
+            //If type a number
+            if(e.getSource() == numberButtons[i]){
+                textField.setText(textField.getText().concat(String.valueOf(i)));
+            }
+        }
+        //If type decimal point
+        if(e.getSource() == decButton){
+            textField.setText(textField.getText().concat("."));
+        }
+        //If click add button
+        if(e.getSource() == addButton){
+            //Assign textFiled value to num1 variable
+            num1 = Double.parseDouble(textField.getText());
+            operator = '+';
+            textField.setText("");
+        }
+
+        //If click substraction button
+        if(e.getSource() == subButton){
+            //Assign textFiled value to num1 variable
+            num1 = Double.parseDouble(textField.getText());
+            operator = '-';
+            textField.setText("");
+        }
+
+        //If click mul button
+        if(e.getSource() == mulButton){
+            //Assign textFiled value to num1 variable
+            num1 = Double.parseDouble(textField.getText());
+            operator = '*';
+            textField.setText("");
+        }
+
+        //If click div button
+        if(e.getSource() == divButton){
+            //Assign textFiled value to num1 variable
+            num1 = Double.parseDouble(textField.getText());
+            operator = '/';
+            textField.setText("");
+        }
+
+        //If click equal button
+        if (e.getSource() == equButton){
+            num2 = Double.parseDouble(textField.getText());
+
+            // Switch between mathematical operations
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case  '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num1 / num2;
+                    break;
+            }
+            //Set the result value in textField
+            textField.setText(String.valueOf(result));
+            //Set result as num1 So can can continue calculations
+            num1 = result;
+        }
+
+
     }
 }
