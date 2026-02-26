@@ -25,6 +25,7 @@ Supports addition, subtraction, multiplication, division, and handles invalid in
 ---
 
 # 📁 Project Structure
+```
 java-fundamentals-workshop/
 ├── src
 │ ├── main
@@ -33,14 +34,14 @@ java-fundamentals-workshop/
 │ │         ├── model/CalculatorModel.java
 │ │         ├── view/CalculatorView.java
 │ │         ├── controller/CalculatorController.java
-│ │         ├── Main.java           # Run GUI-based Calculator
+│ │         ├── Main.java           # Run GUI-based (Java Swing) Calculator
 │ │         └── Calculator.java     # Run Console-based Calculator
 │ └── test
 │   └── java
 │       └── se/lexicon/model/CalculatorModelTest.java
 ├── pom.xml
 └── README.md
-
+```
 
 ---
 
