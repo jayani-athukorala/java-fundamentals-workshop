@@ -1,7 +1,7 @@
 # 🧮 Calculator Application - Java Swing
 
 A desktop calculator built using **Java Swing**.  
-This project demonstrates both a **single-file implementation** and a **MVC architecture**.
+This project demonstrates both a **single-file implementation** and a **MVC architecture** and JUnit tests.
 
 ---
 
@@ -21,16 +21,19 @@ This project demonstrates both a **single-file implementation** and a **MVC arch
 ---
 
 # 📁 Project Structure
-se.lexicon
-│
-├── Calculator.java          # Single-file version
-├── Main.java                # Entry point for MVC version
-├── model
-│   └── CalculatorModel.java
-├── view
-│   └── CalculatorView.java
-└── controller
-    └── CalculatorController.java
+java-fundamentals-workshop/
+├── src
+│ ├── main
+│ │ └── java
+│ │     └── se/lexicon
+│ │         ├── model/CalculatorModel.java
+│ │         ├── view/CalculatorView.java
+│ │         └── controller/CalculatorController.java
+│ └── test
+│   └── java
+│       └── se/lexicon/model/CalculatorModelTest.java
+├── pom.xml
+└── README.md
 
 
 ---
@@ -53,4 +56,20 @@ Compile all classes and run the Main class:
 ```bash
 javac se/lexicon/**/*.java
 java se.lexicon.Main
+```
+
+---
+
+# 🚀 Running JUnit Tests (MVC Version)
+
+Run :
+```bash
+mvn clean test
+```
+- This will compile the project and run all JUnit tests in src/test/java
+
+Example output:
+```text
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
 ```
