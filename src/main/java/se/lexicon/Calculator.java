@@ -1,229 +1,61 @@
 package se.lexicon;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import se.lexicon.model.CalculatorModel;
+import java.util.Scanner;
 
-public class Calculator implements ActionListener {
+public class Calculator{
+    static void main(){
 
-    JFrame frame;
-    JTextField textField;
-    JButton[] numberButtons = new JButton[10];
-    JButton[] functionButtons = new JButton[9];
-    JButton addButton, subButton, mulButton, divButton;
-    JButton decButton, equButton, delButton, clrButton, negButton;
+        Scanner scanner = new Scanner(System.in);
+        CalculatorModel model = new CalculatorModel();
+        boolean running = true;
 
-    //JPanel to hold all above buttons
-    JPanel panel;
+        double num1 = 0;
+        double num2;
+        char operator;
+        String answer;
 
-    Font myFont = new Font("Ink Free", Font.BOLD, 30);
+        IO.println("\n===============Calculator===============");
 
-    double num1 = 0, num2 = 0, result = 0;
-    char operator;
+        while (running){
+            try{
+                IO.print("Enter First Number : ");
+                num1 = Double.parseDouble(scanner.nextLine());
 
-    //Constructor for Calculator class
-    Calculator(){
+                IO.print("Enter operator (+, -, *, /): ");
+                operator = scanner.nextLine().charAt(0);
 
-        //Initialize new Frame
-        frame = new JFrame("Calculator");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(420, 550);
-        frame.setLayout(null);
+                IO.print("Enter Second Number : ");
+                num2 = Double.parseDouble(scanner.nextLine());
 
-        //TextField to Display Inputs
-        textField = new JTextField();
-        textField.setBounds(50, 25, 300, 50);
-        textField.setFont(myFont);
-        //Fals edits
-        textField.setEditable(false);
+                //Pass values to the model
+                model.setNum1(num1);
+                model.setNum2(num2);
+                model.setOperator(operator);
 
-        //Buttons
-        addButton = new JButton("+");
-        subButton = new JButton("-");
-        mulButton = new JButton("*");
-        divButton = new JButton("/");
-        decButton = new JButton(".");
-        equButton = new JButton("=");
-        delButton = new JButton("DEL");
-        clrButton = new JButton("CLR");
-        negButton = new JButton("(-)");
+                //Calculate
+                double result = model.calculate();
+                IO.print("Result : "+result+"\n");
 
-        //Add above buttons to functionButtons array
-        functionButtons[0] = addButton;
-        functionButtons[1] = subButton;
-        functionButtons[2] = mulButton;
-        functionButtons[3] = divButton;
-        functionButtons[4] = decButton;
-        functionButtons[5] = equButton;
-        functionButtons[6] = delButton;
-        functionButtons[7] = clrButton;
-        functionButtons[8] = negButton;
+                do{
+                    IO.print("Do you want to continue? y/n : ");
+                    answer = scanner.nextLine().trim();
+                }while (!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("y"));
 
-        //Set action listeners to function buttons
-        for (int i = 0; i <= 8; i++ ){
-            functionButtons[i].addActionListener(this);
-            functionButtons[i].setFont(myFont);
-            functionButtons[i].setFocusable(false);
-        }
-
-        //Set action listeners to number buttons
-        for (int i = 0; i <= 9; i++ ){
-            numberButtons[i] = new JButton(String.valueOf(i));
-            numberButtons[i].addActionListener(this);
-            numberButtons[i].setFont(myFont);
-            numberButtons[i].setFocusable(false);
-        }
-
-        //Set Negative button Delete button and Clear button in the bottom of the panel
-        negButton.setBounds(50, 430, 100, 50);
-        delButton.setBounds(150, 430, 100, 50);
-        clrButton.setBounds(250, 430, 100, 50);
-
-        //Create a new panel
-        panel = new JPanel();
-        panel.setBounds(50, 100, 300, 300);
-        panel.setLayout(new GridLayout(4, 4, 10, 10));
-
-        //Add number buttons and other function buttons to the new panel
-        //Fist raw
-        panel.add(numberButtons[1]);
-        panel.add(numberButtons[2]);
-        panel.add(numberButtons[3]);
-        panel.add(addButton);
-
-        //Second raw
-        panel.add(numberButtons[4]);
-        panel.add(numberButtons[5]);
-        panel.add(numberButtons[6]);
-        panel.add(subButton);
-
-        //Third raw
-        panel.add(numberButtons[7]);
-        panel.add(numberButtons[8]);
-        panel.add(numberButtons[9]);
-        panel.add(mulButton);
-
-        //Fourth raw
-        panel.add(decButton);
-        panel.add(numberButtons[0]);
-        panel.add(equButton);
-        panel.add(divButton);
-
-        // Add new panel to the frame
-        frame.add(panel);
-        frame.add(negButton);
-        frame.add(delButton);
-        frame.add(clrButton);
-        //Add textField to the frame
-        frame.add(textField);
-        frame.setVisible(true);
-    }
-
-    static void main(String[] args) {
-
-        //Create an instance of Calculator Class
-        Calculator calc = new Calculator();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        //Add numbers to the text fields
-        for(int i = 0; i <= 9; i++){
-
-            //If type a number
-            if(e.getSource() == numberButtons[i]){
-                textField.setText(textField.getText().concat(String.valueOf(i)));
-            }
-        }
-        //If type decimal point
-        if(e.getSource() == decButton){
-            textField.setText(textField.getText().concat("."));
-        }
-        //If click add button
-        if(e.getSource() == addButton){
-            //Assign textFiled value to num1 variable
-            num1 = Double.parseDouble(textField.getText());
-            operator = '+';
-            textField.setText("");
-        }
-
-        //If click substraction button
-        if(e.getSource() == subButton){
-            //Assign textFiled value to num1 variable
-            num1 = Double.parseDouble(textField.getText());
-            operator = '-';
-            textField.setText("");
-        }
-
-        //If click mul button
-        if(e.getSource() == mulButton){
-            //Assign textFiled value to num1 variable
-            num1 = Double.parseDouble(textField.getText());
-            operator = '*';
-            textField.setText("");
-        }
-
-        //If click div button
-        if(e.getSource() == divButton){
-            //Assign textFiled value to num1 variable
-            num1 = Double.parseDouble(textField.getText());
-            operator = '/';
-            textField.setText("");
-        }
-
-        //If click equal button
-        if (e.getSource() == equButton){
-            num2 = Double.parseDouble(textField.getText());
-
-            // Switch between mathematical operations
-            switch (operator) {
-                case '+':
-                    result = num1 + num2;
-                    break;
-                case  '-':
-                    result = num1 - num2;
-                    break;
-                case '*':
-                    result = num1 * num2;
-                    break;
-                case '/':
-                    result = num1 / num2;
-                    break;
-            }
-            //Set the result value in textField
-            textField.setText(String.valueOf(result));
-            //Set result as num1 So can can continue calculations
-            num1 = result;
-        }
-
-        //Clear text
-        if(e.getSource() == clrButton){
-            textField.setText("");
-        }
-
-        //If click on delete that will delete numbers one by one
-        if (e.getSource() == delButton) {
-            String text = textField.getText();
-
-            if (!text.isEmpty()) {
-                textField.setText(text.substring(0, text.length() - 1));
-            }
-        }
-
-        // If click negative button
-        if (e.getSource() == negButton) {
-            String text = textField.getText();
-
-            if (!text.isEmpty()) {
-                try {
-                    double value = Double.parseDouble(text);
-                    value *= -1;
-                    textField.setText(String.valueOf(value));
-                } catch (NumberFormatException ex) {
-                    textField.setText("Invalid input");
+                if(answer.equalsIgnoreCase("n")){
+                    running = false;
                 }
+            }catch (NumberFormatException e){
+                IO.println("Error : Invalid number entered. Please try again.");
+            }catch (ArithmeticException e){
+                IO.println("Error : " + e.getMessage());
+            }catch (IllegalStateException e) {
+                IO.println("Error: Invalid operator. Select +, -, *, or /");
             }
+
         }
+        IO.println("=========Calculator Closed.===========");
+        scanner.close();
     }
 }
+

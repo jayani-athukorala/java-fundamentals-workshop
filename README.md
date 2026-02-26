@@ -1,7 +1,10 @@
-# 🧮 Calculator Application - Java Swing
+# 🧮 Calculator Application - Java Console + Java Swing
 
-A desktop calculator built using **Java Swing**.  
-This project demonstrates both a **single-file implementation** and a **MVC architecture** and JUnit tests.
+A simple desktop calculator built using **Java**.  
+Supports addition, subtraction, multiplication, division, and handles invalid inputs and Provide JUnit tests.
+
+1. **Console-based version**: `Calculator.java`
+2. **GUI-based (Java Swing) version**: `Main.java` with `Model`, `View`, and `Controller` architecture.
 
 ---
 
@@ -17,6 +20,7 @@ This project demonstrates both a **single-file implementation** and a **MVC arch
     - Invalid input
     - Divide by zero
 - MVC design pattern (separate Model, View, Controller)
+- JUnit Tests
 
 ---
 
@@ -28,7 +32,9 @@ java-fundamentals-workshop/
 │ │     └── se/lexicon
 │ │         ├── model/CalculatorModel.java
 │ │         ├── view/CalculatorView.java
-│ │         └── controller/CalculatorController.java
+│ │         ├── controller/CalculatorController.java
+│ │         ├── Main.java           # Run GUI-based Calculator
+│ │         └── Calculator.java     # Run Console-based Calculator
 │ └── test
 │   └── java
 │       └── se/lexicon/model/CalculatorModelTest.java
@@ -40,7 +46,7 @@ java-fundamentals-workshop/
 
 # 🚀 How to Run
 
-## ▶ Option 1 — Run Single File Version
+## ▶ Option 1 — Run Console-based Version
 
 Compile and run:
 
@@ -49,7 +55,7 @@ javac Calculator.java
 java Calculator
 ```
 
-## ▶ Option 2 — Run MVC Version
+## ▶ Option 2 — Run GUI(MVC) Version
 
 Compile all classes and run the Main class:
 
@@ -60,13 +66,13 @@ java se.lexicon.Main
 
 ---
 
-# 🚀 Running JUnit Tests (MVC Version)
+# 🚀 Running JUnit Tests (Test Model Functions)
 
 Run :
 ```bash
 mvn clean test
 ```
-- This will compile the project and run all JUnit tests in src/test/java
+- This will compile the project and run all JUnit tests in ```text src/test/java ```
 
 Example output:
 ```text
